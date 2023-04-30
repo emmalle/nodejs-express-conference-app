@@ -1,0 +1,59 @@
+{
+  "name": "conference",
+  "version": "0.1.0",
+  "description": "A conference app",
+  "repository": {
+    "type": "git"
+  },
+  "author": "drtob",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/server.js",
+    "start:dev": "yarn build:dev && nodemon dist/server.js",
+    "watch:start:dev": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"nodemon dist/server.js\"",
+    "start:debug": "yarn build:dev && concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"nodemon --inspect dist/server.js\"",
+    "env:set": "./scripts/environment/set-env.sh",
+    "build:dev": "yarn env:set -- dev && tsc",
+    "build:staging": "yarn env:set -- staging && tsc",
+    "build:prod": "yarn env:set -- prod && tsc",
+    "watch-node": "nodemon dist/server.js",
+    "copy-static-assets": "ts-node ./scripts/copy-static-assets",
+    "watch-ts": "yarn env:set -- dev && tsc -w",
+    "watch": "yarn build:dev && concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"yarn watch-node\"",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"yarn serve-debug\""
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "lusca": "^1.6.1",
+    "mongoose": "^5.7.1",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.1",
+    "@types/compression": "^1.0.1",
+    "@types/cors": "^2.8.6",
+    "@types/errorhandler": "^0.0.32",
+    "@types/express": "^4.17.1",
+    "@types/hapi__joi": "^16.0.8",
+    "@types/lodash": "^4.14.141",
+    "@types/lusca": "^1.6.1",
+    "@types/mongoose": "^5.5.18",
+    "@types/node": "^12.7.8",
+    "@types/shelljs": "^0.8.5",
+    "shelljs": "^0.8.3",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": "10"
+  }
+}
